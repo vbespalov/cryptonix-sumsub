@@ -211,12 +211,12 @@ class Client
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $array[$key] = removeEmptyValues($value); // Рекурсивная очистка
+                $array[$key] = $this->removeEmptyValues($value);
                 if (empty($array[$key])) {
-                    unset($array[$key]); // Удаляем пустой массив
+                    unset($array[$key]);
                 }
             } elseif ($value === null || $value === '') {
-                unset($array[$key]); // Удаляем null и пустые строки
+                unset($array[$key]);
             }
         }
 
