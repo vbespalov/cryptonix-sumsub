@@ -1,5 +1,5 @@
 {
-  "name": "vbespalov/sumsub",
+  "name": "vbespalov/cryptonix-sumsub",
   "type": "library",
   "description": "Interact with Sumsub service",
   "keywords": [
