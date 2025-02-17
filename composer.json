@@ -1,0 +1,20 @@
+{
+  "name": "vbespalov/sumsub",
+  "type": "library",
+  "description": "Interact with Sumsub service",
+  "keywords": [
+    "sumsub"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^8.1",
+    "guzzlehttp/guzzle": "^7.0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Sumsub\\": [
+        "src"
+      ]
+    }
+  }
+}
