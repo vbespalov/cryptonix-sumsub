@@ -13,8 +13,8 @@ class Client
     private const BASE_URL = 'https://api.sumsub.com';
 
     public function __construct(
-        private readonly string $token,
-        private readonly string $secretKey,
+        private readonly ?string $token = null,
+        private readonly ?string $secretKey = null,
     ) {
     }
 
@@ -162,6 +162,10 @@ class Client
 
     private function sendRequest(string $uri, string $method, array $body = []): array
     {
+        if (!$this->token || !$this->secretKey) {
+            return [];
+        }
+
         $body = $this->removeEmptyValues($body);
 
         $client = new GuzzleClient();

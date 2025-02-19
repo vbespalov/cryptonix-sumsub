@@ -9,4 +9,4 @@ Library to interact with Sumsub Service
 
 ## Installation
 
-`composer require vbespalov/sumsub`
+`composer require vbespalov/cryptonix-sumsub`
