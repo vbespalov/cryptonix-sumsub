@@ -160,6 +160,17 @@ class Client
         );
     }
 
+    public function patchTransactionWithChainTransactionId(string $sumsubTransactionId, string $paymentTxnId): array
+    {
+        // https://docs.sumsub.com/reference/patch-transaction-with-chain-txid
+        $uri = sprintf('/resources/kyt/txns/%s/data/info', $sumsubTransactionId);
+        return $this->sendRequest(
+            $uri,
+            'PATCH',
+            ['paymentTxnId' => $paymentTxnId]
+        );
+    }
+
     private function sendRequest(string $uri, string $method, array $body = []): array
     {
         if (!$this->token || !$this->secretKey) {
