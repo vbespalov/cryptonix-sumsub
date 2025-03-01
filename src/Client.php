@@ -7,6 +7,7 @@ namespace Sumsub;
 use GuzzleHttp\Client as GuzzleClient;
 use Sumsub\Contract\CreateApplicantDto;
 use Sumsub\Contract\CreateTransactionDto;
+use Sumsub\Contract\WalletAddressDto;
 
 class Client
 {
@@ -168,6 +169,26 @@ class Client
             $uri,
             'PATCH',
             ['paymentTxnId' => $paymentTxnId]
+        );
+    }
+
+    /**
+     * @param WalletAddressDto[] $walletAddresses
+     * @return array
+     */
+    public function submitWalletAddresses(array $walletAddresses): array
+    {
+        // https://docs.sumsub.com/reference/import-wallet-addresses
+        $uri = '/resources/kyt/walletAddress/import';
+        $body = [];
+        foreach ($walletAddresses as $walletAddress) {
+            $body[] = (array)$walletAddress;
+        }
+
+        return $this->sendRequest(
+            $uri,
+            'POST',
+            $body
         );
     }
 
