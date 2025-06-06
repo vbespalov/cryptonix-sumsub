@@ -7,6 +7,7 @@ namespace Sumsub;
 use GuzzleHttp\Client as GuzzleClient;
 use Sumsub\Contract\CreateApplicantDto;
 use Sumsub\Contract\CreateTransactionDto;
+use Sumsub\Contract\VerificationLinkDto;
 use Sumsub\Contract\WalletAddressDto;
 
 class Client
@@ -184,6 +185,32 @@ class Client
         foreach ($walletAddresses as $walletAddress) {
             $body[] = (array)$walletAddress;
         }
+
+        return $this->sendRequest(
+            $uri,
+            'POST',
+            $body
+        );
+    }
+
+    /**
+     * @param string $levelName
+     * @param VerificationLinkDto $dto
+     * @param int $ttl
+     * @return array|\Exception[]
+     */
+    public function getExternalWebSdkLink(string $levelName, VerificationLinkDto $dto, int $ttl = 1800): array
+    {
+        // https://docs.sumsub.com/reference/generate-websdk-external-link
+        $uri = '/resources/sdkIntegrations/levels/-/websdkLink';
+        $body = [
+            'levelName' => $levelName,
+            'userId' => $dto->userUuid,
+            'applicantIdentifiers' => [
+                'email' => $dto->email,
+            ],
+            'ttlInSecs' => $ttl,
+        ];
 
         return $this->sendRequest(
             $uri,
