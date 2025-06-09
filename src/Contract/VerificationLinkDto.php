@@ -7,6 +7,7 @@ namespace Sumsub\Contract;
 readonly class VerificationLinkDto
 {
     public function __construct(
+        public string $levelName,
         public string $userUuid,
         public string $email,
     ){

@@ -194,17 +194,16 @@ class Client
     }
 
     /**
-     * @param string $levelName
      * @param VerificationLinkDto $dto
      * @param int $ttl
      * @return array|\Exception[]
      */
-    public function getExternalWebSdkLink(string $levelName, VerificationLinkDto $dto, int $ttl = 1800): array
+    public function getExternalWebSdkLink(VerificationLinkDto $dto, int $ttl = 1800): array
     {
         // https://docs.sumsub.com/reference/generate-websdk-external-link
         $uri = '/resources/sdkIntegrations/levels/-/websdkLink';
         $body = [
-            'levelName' => $levelName,
+            'levelName' => $dto->levelName,
             'userId' => $dto->userUuid,
             'applicantIdentifiers' => [
                 'email' => $dto->email,
@@ -216,6 +215,16 @@ class Client
             $uri,
             'POST',
             $body
+        );
+    }
+
+    public function getVerificationLevels(): array
+    {
+        // https://docs.sumsub.com/reference/get-applicant-levels
+        $uri = '/resources/applicants/-/levels';
+        return $this->sendRequest(
+            $uri,
+            'GET'
         );
     }
 
