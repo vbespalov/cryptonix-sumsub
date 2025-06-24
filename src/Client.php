@@ -228,6 +228,18 @@ class Client
         );
     }
 
+    public function changeApplicantStatus(string $applicantId, bool $isActive = false): array
+    {
+        // https://docs.sumsub.com/reference/deactivate-applicant-profile
+        $status = $isActive ? 'activated' : 'deactivated';
+        $uri = sprintf('/resources/applicants/%s/presence/%s', $applicantId, $status);
+
+        return $this->sendRequest(
+            $uri,
+            'PATCH'
+        );
+    }
+
     private function sendRequest(string $uri, string $method, array $body = []): array
     {
         if (!$this->token || !$this->secretKey) {
