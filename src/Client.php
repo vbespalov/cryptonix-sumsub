@@ -240,6 +240,17 @@ class Client
         );
     }
 
+    public function getApplicantInfo(string $applicantId): array
+    {
+        // https://docs.sumsub.com/reference/get-applicant-data
+        $uri = sprintf('/resources/applicants/%s/one', $applicantId);
+
+        return $this->sendRequest(
+            $uri,
+            'GET'
+        );
+    }
+
     private function sendRequest(string $uri, string $method, array $body = []): array
     {
         if (!$this->token || !$this->secretKey) {
