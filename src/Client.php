@@ -251,6 +251,22 @@ class Client
         );
     }
 
+    public function moveApplicatToNextLevel(string $applicantId, string $nextLevel): array
+    {
+        // https://docs.sumsub.com/reference/change-level-and-reset-steps
+        $uri = sprintf('/resources/applicants/%s/moveToLevel', $applicantId);
+
+        $body = [
+            'name' => $nextLevel,
+        ];
+
+        return $this->sendRequest(
+            $uri,
+            'POST',
+            $body
+        );
+    }
+
     private function sendRequest(string $uri, string $method, array $body = []): array
     {
         if (!$this->token || !$this->secretKey) {
