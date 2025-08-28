@@ -262,6 +262,17 @@ class Client
         );
     }
 
+    public function getApplicantReviewStatus(string $applicantId): array
+    {
+        // https://docs.sumsub.com/reference/get-applicant-review-status
+        $uri = sprintf('/resources/applicants/{%s}/status', $applicantId);
+
+        return $this->sendRequest(
+            $uri,
+            'GET'
+        );
+    }
+
     private function sendRequest(string $uri, string $method, array $body = []): array
     {
         if (!$this->token || !$this->secretKey) {
