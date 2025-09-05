@@ -273,6 +273,17 @@ class Client
         );
     }
 
+    public function requestApplicantCheck(string $applicantId): array
+    {
+        // https://docs.sumsub.com/reference/request-applicant-check
+        $uri = sprintf('/resources/applicants/%s/status/pending', $applicantId);
+
+        return $this->sendRequest(
+            $uri,
+            'POST'
+        );
+    }
+
     private function sendRequest(string $uri, string $method, array $body = []): array
     {
         if (!$this->token || !$this->secretKey) {
